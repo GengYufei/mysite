@@ -1,0 +1,10 @@
+*{
+    margin: 0;  /*外边距设为0*/
+    padding: 0;  /*内边距设为0*/
+}
+body{
+    margin-top: 70px!important;
+}
+ul{
+    list-style-type: none;
+}
