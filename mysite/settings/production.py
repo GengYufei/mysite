@@ -41,39 +41,39 @@ DATABASES = {
     }
 }
 
-# 管理员邮箱配置
-ADMINS = (
-    ('admin', '1064112798@qq.com'),
-)
-
-# 日志文件
-LOGGING = {
-    'version': 1,
-    'disable_existing_loggers': False,
-    'handlers': {
-        'file': {
-            'level': 'DEBUG',
-            'class': 'logging.FileHandler',
-            'filename': '/home/mysite_debug.log',
-        },
-        # 错误日志，发送到管理员邮箱
-        'mail_admins': {
-            'level': 'ERROR',
-            'class': 'django.utils.log.AdminEmailHandler',
-            'filters': ['special']
-        },
-    },
-    'loggers': {
-        'django': {
-            'handlers': ['file'],
-            'level': 'DEBUG',
-            'propagate': True,
-        },
-
-        'django.request': {
-            'handlers': ['mail_admins'],
-            'level': 'ERROR',   # 出现错误是，发邮件
-            'propagate': False,
-        },
-    },
-}
+# # 管理员邮箱配置
+# ADMINS = (
+#     ('admin', '1064112798@qq.com'),
+# )
+#
+# # 日志文件
+# LOGGING = {
+#     'version': 1,
+#     'disable_existing_loggers': False,
+#     'handlers': {
+#         'file': {
+#             'level': 'DEBUG',
+#             'class': 'logging.FileHandler',
+#             'filename': '/home/mysite_debug.log',
+#         },
+#         # 错误日志，发送到管理员邮箱
+#         'mail_admins': {
+#             'level': 'ERROR',
+#             'class': 'django.utils.log.AdminEmailHandler',
+#             'filters': ['special']
+#         },
+#     },
+#     'loggers': {
+#         'django': {
+#             'handlers': ['file'],
+#             'level': 'DEBUG',
+#             'propagate': True,
+#         },
+#
+#         'django.request': {
+#             'handlers': ['mail_admins'],
+#             'level': 'ERROR',   # 出现错误是，发邮件
+#             'propagate': False,
+#         },
+#     },
+# }
