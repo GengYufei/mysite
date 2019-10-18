@@ -1,4 +1,4 @@
-{% load staticfiles %}  {#引入静态文件的方法#}
+{% load staticfiles %}  {#Django框架，引入静态文件static的方法#}
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
@@ -10,12 +10,12 @@
 
         {% endblock %}
     </title>
-    {% block header_extends %}{% endblock %}
-{#    <link rel="stylesheet" href="/static/my_css/base.my_css">#}
+    {% block header_extends %}{% endblock %}    {# 为其他HTML扩充link做准备 #}
     <link rel="stylesheet" href="{% static 'my_css/base.css' %}">
     <link rel="stylesheet" href="{% static 'bootstrap-3.3.7/css/bootstrap.min.css' %}">
-    <script type="text/javascript" src="{% static 'bootstrap-3.3.7/js/bootstrap.min.js' %}"></script>
+    {# jQuery的引用一定要放在JS的前面，JS相关功能依托jQuery #}
     <script type="text/javascript" src="{% static 'bootstrap-3.3.7/js/jquery-1.12.4.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'bootstrap-3.3.7/js/bootstrap.min.js' %}"></script>
 
 </head>
 <body>
