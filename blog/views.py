@@ -1,4 +1,4 @@
-from django.shortcuts import render_to_response
+from django.shortcuts import render
 from django.shortcuts import get_object_or_404
 from django.core.paginator import Paginator
 from django.conf import settings
@@ -72,7 +72,7 @@ def get_blog_list_common_data(request, blogs_all_list):
 def blog_list(request):
     blogs_all_list = Blog.objects.all()
     context = get_blog_list_common_data(request, blogs_all_list)
-    return render_to_response('blog/blog_list.html', context)
+    return render(request, 'blog/blog_list.html', context)
 
 def blog_detail(request, blog_pk):
     blog = get_object_or_404(Blog, pk=blog_pk)
@@ -84,7 +84,7 @@ def blog_detail(request, blog_pk):
     # 依据创建时间，获取比当前博客创建时间早的相邻的第一条博客列表
     context['next_blog'] = Blog.objects.filter(created_time__lt=blog.created_time).first()
     context['blog'] = blog
-    response = render_to_response('blog/blog_detail.html', context)     # 响应
+    response = render(request, 'blog/blog_detail.html', context)     # 响应
     response.set_cookie(read_cookie_key, 'true')   # 设置cookie，博客阅读统计
     return response
 
@@ -95,7 +95,7 @@ def blogs_with_type(request, blog_type_pk):
 
     context = get_blog_list_common_data(request, blogs_all_list)
     context['blog_type'] = blog_type  # 获取文章类型
-    return render_to_response('blog/blogs_with_type.html', context)
+    return render(request, 'blog/blogs_with_type.html', context)
 
 
 # 根据创建日期进行分类
@@ -104,7 +104,7 @@ def blogs_with_date(request, year, month):
     blogs_all_list = Blog.objects.filter(created_time__year=year, created_time__month=month)
     context = get_blog_list_common_data(request, blogs_all_list)
     context['blogs_with_date'] = "%s年%s月" % (year, month)
-    return render_to_response('blog/blogs_with_date.html', context)
+    return render(request, 'blog/blogs_with_date.html', context)
 
 
 
@@ -153,7 +153,7 @@ def blogs_with_date(request, year, month):
 #     # context['blogs_count'] = Blog.objects.all().count()
 #     context['blog_dates'] = Blog.objects.dates('created_time', 'month', order='DESC')
 #     context['blog_types'] = BlogType.objects.all()
-#     return render_to_response('blog/blog_list.html', context)
+#     return render(request, 'blog/blog_list.html', context)
 #
 # def blog_detail(request, blog_pk):
 #     context = {}
@@ -163,7 +163,7 @@ def blogs_with_date(request, year, month):
 #     # 依据创建时间，获取比当前博客创建时间早的相邻的第一条博客列表
 #     context['next_blog'] = Blog.objects.filter(created_time__lt=blog.created_time).first()
 #     context['blog'] = blog
-#     return render_to_response('blog/blog_detail.html', context)
+#     return render(request, 'blog/blog_detail.html', context)
 #
 # def blogs_with_type(request, blog_type_pk):
 #     # 原内容
@@ -205,7 +205,7 @@ def blogs_with_date(request, year, month):
 #     context['page_range'] = page_range  # 提供当前页码及周围的前后2页码
 #     context['blog_types'] = BlogType.objects.all()
 #     context['blog_dates'] = Blog.objects.dates('created_time', 'month', order='DESC')
-#     return render_to_response('blog/blogs_with_type.html', context)
+#     return render(request, 'blog/blogs_with_type.html', context)
 #
 # def blogs_with_date(request, year, month):
 #     context = {}
@@ -239,4 +239,4 @@ def blogs_with_date(request, year, month):
 #     context['page_range'] = page_range  # 提供当前页码及周围的前后2页码
 #     context['blog_types'] = BlogType.objects.all()
 #     context['blog_dates'] = Blog.objects.dates('created_time', 'month', order='DESC')
-#     return render_to_response('blog/blogs_with_date.html', context)
+#     return render(request, 'blog/blogs_with_date.html', context)

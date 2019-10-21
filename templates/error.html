@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+{#页面title#}
+{% block title %}
+    我的博客|错误
+{% endblock %}
+
+{#导航页激活#}
+{% block nav_home_active %}
+    active
+{% endblock %}
+
+{#页面内容#}
+{% block content %}
+    {{ message }}
+{% endblock %}

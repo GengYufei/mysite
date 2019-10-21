@@ -22,8 +22,11 @@ from .import views
 urlpatterns = [
     path('', views.home, name='home'),
     path('admin/', admin.site.urls),
-    path('ckeditor', include('ckeditor_uploader.urls')),  # 增加图片上传功能相关URL
-    path('blog/', include('blog.urls')),
+    path('ckeditor', include('ckeditor_uploader.urls')),    # 增加图片上传功能相关URL
+    path('blog/', include('blog.urls')),                    # 添加blog APP的URL
+    path('comment/', include('comment.urls')),              # 添加comment APP的URL
+    path('login/', views.login_, name='login'),             # 用户登录地址
+    path('register/', views.register, name='register'),     # 用户注册地址
 
 ]
 

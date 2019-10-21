@@ -28,8 +28,9 @@ INSTALLED_APPS = [
     'ckeditor',  # 添加富文本编辑器（app）,Django自带第三方库
     'ckeditor_uploader',  # 增加图片上传功能，第三方库（pillow）
 
-    'blog',    # 添加自定义APP
-    'read_statistics',    # 添加自定义APP
+    'blog',    # 添加自定义APP：博客
+    'read_statistics',    # 添加自定义APP：七天阅读统计
+    'comment',    # 添加自定义APP:评论功能
 
 ]
 
