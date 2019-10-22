@@ -40,3 +40,8 @@ h3.comment-area-title {
     border-bottom: 1px solid #ccc;
     padding-bottom: 0.4em;
 }
+
+/*设置评论区窗口占满整个页面*/
+div.django-ckeditor-widget {
+    width:100%;
+}

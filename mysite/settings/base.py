@@ -115,7 +115,7 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')    # 多媒体文件保存路径
 # 配置ckeditor
 CKEDITOR_UPLOAD_PATH = 'upload/'
 
-# 自定义参数
+# 自定义参数(用于APP-blog下的views.py下的get_blog_list_common_data方法，用于设置每个网页最多显示几条博客)
 EACH_PAGE_BLOGS_NUMBER = 7
 
 # 缓存设置(服务器后台)，暂时保存一些常用数据
@@ -123,5 +123,25 @@ CACHES = {
     'default': {
         'BACKEND': 'django.core.cache.backends.db.DatabaseCache',
         'LOCATION': 'my_cache_table',
+    }
+}
+
+# 评论功能区的配置文件，（APP-comment下的forms.py文件下的，文本编辑区：text）
+CKEDITOR_CONFIGS = {
+    'comment_ckeditor': {
+        'toolbar': 'custom',    # 工具栏
+        # 工具栏包含哪些内容（自定义设置）
+        'toolbar_custom': [
+            ['Bold', 'Italic', 'Underline', 'Strike', 'Subscript', 'Superscript'],
+            ['TextColor', 'BGColor', 'RemoveFormat'],
+            ['NumberedList', 'BulletedList'],
+            ['Link', 'Unlink'],
+            ['Smiley', 'SpecialChar', 'Blockquote'],
+        ],
+        'width': 'auto',    # 宽度自适应
+        'height': '180',    # 高度
+        'tabSpaces': 4,     # 按tab键，实现4个空格
+        'removePlugins': 'elementspath',    # 将评论区底部提示文字“去除”
+        'resize_enabled': False,
     }
 }

@@ -9,7 +9,8 @@ from django.template.defaultfilters import date
 from .models import Blog
 from .models import BlogType
 from read_statistics.utils import read_statistics_once_read     # 从APP read_statistics的工具模块中，导入类：ReadNum
-from comment.models import Comment      # 从APP comment的模型中，导出模型类：Comment
+from comment.models import Comment      # 从APP comment的数据模型中，导出模型类：Comment
+from comment.forms import CommentForm   # 从APP comment的forms模块导入CommentForm
 
 # 获取博客视图的通用代码，汇总到一起
 def get_blog_list_common_data(request, blogs_all_list):
@@ -93,6 +94,9 @@ def blog_detail(request, blog_pk):
     context['next_blog'] = Blog.objects.filter(created_time__lt=blog.created_time).first()
     context['blog'] = blog
     context['comments'] = comments  # 返回评论内容到前端页面
+    # 评论表单类实例化
+    context['comment_form'] = CommentForm(initial={'content_type': blog_content_type.model,
+                                                   'object_id': blog_pk})
     response = render(request, 'blog/blog_detail.html', context)     # 响应
     response.set_cookie(read_cookie_key, 'true')   # 设置cookie，博客阅读统计
     return response
