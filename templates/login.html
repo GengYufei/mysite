@@ -24,7 +24,6 @@
                     <div class="panel-body">
                         <form action="" method="post">
                             {% csrf_token %}
-{#                            {{ login_form }}#}
                             {% for field in login_form %}
                                 <label for="{{ field.id_for_label }}">{{ field.label }}</label>
                                 {{ field }}

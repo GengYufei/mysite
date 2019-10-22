@@ -22,3 +22,8 @@ class Comment(models.Model):
     # 外键关联到‘User’
     # on_delete=models.DO_NOTHING：当删除本表结构的user时，对Django自带用户管理数据不做任何操作
     user = models.ForeignKey(User, on_delete=models.DO_NOTHING)
+
+    class Meta:
+        # 排序设置：倒序排序
+        ordering = ['-comment_time']    # 根据创建评论时间，倒序排序
+

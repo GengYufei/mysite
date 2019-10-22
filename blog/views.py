@@ -8,9 +8,10 @@ from django.template.defaultfilters import date
 
 from .models import Blog
 from .models import BlogType
-# 从APP read_statistics的模型中，导入模型类：ReadNum
-from read_statistics.utils import read_statistics_once_read
+from read_statistics.utils import read_statistics_once_read     # 从APP read_statistics的工具模块中，导入类：ReadNum
+from comment.models import Comment      # 从APP comment的模型中，导出模型类：Comment
 
+# 获取博客视图的通用代码，汇总到一起
 def get_blog_list_common_data(request, blogs_all_list):
     # 从settings文件中获取每页的文章数量EACH_PAGE_BLOGS_NUMBER
     paginator = Paginator(blogs_all_list, settings.EACH_PAGE_BLOGS_NUMBER)
@@ -69,14 +70,21 @@ def get_blog_list_common_data(request, blogs_all_list):
     # annotate的学习网址（很全面）：https://blog.csdn.net/qq_25046261/article/details/79178462
     context['blog_types'] = BlogType.objects.annotate(blog_count=Count('blog'))
     return context
+
+# 博客列表
 def blog_list(request):
     blogs_all_list = Blog.objects.all()
     context = get_blog_list_common_data(request, blogs_all_list)
     return render(request, 'blog/blog_list.html', context)
 
+# 博客详细内容
 def blog_detail(request, blog_pk):
     blog = get_object_or_404(Blog, pk=blog_pk)
     read_cookie_key = read_statistics_once_read(request, blog)
+    # 作用：评论区展示评论内容
+    blog_content_type = ContentType.objects.get_for_model(blog)     # 获取博客的content_type类型
+    # 得到相关评论内容
+    comments = Comment.objects.filter(content_type=blog_content_type, object_id=blog.pk)
 
     # 依据创建时间，获取比当前博客创建时间晚的相邻的第一条博客列表
     context = {}
@@ -84,11 +92,12 @@ def blog_detail(request, blog_pk):
     # 依据创建时间，获取比当前博客创建时间早的相邻的第一条博客列表
     context['next_blog'] = Blog.objects.filter(created_time__lt=blog.created_time).first()
     context['blog'] = blog
+    context['comments'] = comments  # 返回评论内容到前端页面
     response = render(request, 'blog/blog_detail.html', context)     # 响应
     response.set_cookie(read_cookie_key, 'true')   # 设置cookie，博客阅读统计
     return response
 
-
+# 根据博客类型分类
 def blogs_with_type(request, blog_type_pk):
     blog_type = get_object_or_404(BlogType, pk=blog_type_pk)
     blogs_all_list = Blog.objects.filter(blog_type=blog_type)   # 此处修改：只获取该分类下的博客对象
