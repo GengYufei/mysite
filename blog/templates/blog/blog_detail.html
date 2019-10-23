@@ -26,7 +26,7 @@
                 <h3>{{ blog.title }}</h3>
                 <ul class="blog-info-description">
                     <li>作者：{{ blog.author }}</li>
-                    <li>发表日期：{{ blog.created_time|date:'Y-m-d h:n:s' }}</li>
+                    <li>发表日期：{{ blog.created_time|date:'Y-m-d H:i:s' }}</li>
                     <li>分类：
                         <a href="{% url 'blogs_wiht_type' blog.blog_type.pk %}">
                             {{ blog.blog_type }}
@@ -61,13 +61,14 @@
                 <div class="comment-area">
                     <h3 class="comment-area-title">提交评论</h3>
                     {% if user.is_authenticated %}
-                        <form action="{% url 'update_comment' %}" method="post" style="overflow: hidden">
+                        <form id="comment-form" action="{% url 'update_comment' %}" method="post" style="overflow: hidden">
                             <label>{{ user.username }}，欢迎评论～</label>
                             {% csrf_token %}    {# 防御CSRF攻击 #}
                             {% for field in comment_form %}
                                 {{ field }}
                             {% endfor %}
-                            <input type="submit" value="评论" class="btn btn-primary" style="float:right">
+                            <span id="comment_error" class="text-danger pull-left"></span>
+                            <input type="submit" value="评论" class="btn btn-primary pull-right">
                         </form>
                     {% else %}
                         您尚未登录，登录之后方可评论～
@@ -78,17 +79,62 @@
                 </div>
                 <div class="comment-area">
                     <h3 class="comment-area-title">评论列表区</h3>
-                    {% for comment in comments %}
-                        <div>
-                            {{ comment.user.username }}
-                            ({{ comment.comment_time|date:'Y-m-d h:n:s' }}):
-                            {{ comment.text }}
-                        </div>
-                    {% empty %}
-                        暂无评论
-                    {% endfor %}
+                    <div id="comment_list">
+                        {% for comment in comments %}
+                            <div>
+                                {{ comment.user.username }}
+                                ({{ comment.comment_time|date:'Y-m-d H:i:s' }}):
+                                {{ comment.text|safe }}     {# |safe:评论文字内容转义成文本样式 #}
+                            </div>
+                        {% empty %}
+                            暂无评论
+                        {% endfor %}
+                    </div>
                 </div>
             </div>
         </div>
     </div>
+{% endblock %}
+
+{# ajax/javascript样式代码块 #}
+{% block script_extends %}
+    <script type="text/javascript">
+        $("#comment-form").submit(function () {
+            $('#comment_error').text('');
+            // 判断评论内容是否为空
+            if(CKEDITOR.instances['id_text'].document.getBody().getText().trim()==''){
+                // 显示错误信息
+                $('#comment_error').text('评论内容不能为空！');
+                return false;
+            }
+            // 更新数据到textarea
+            CKEDITOR.instances['id_text'].updateElement();
+            //异步提交
+            $.ajax({
+                url: "{% url 'update_comment' %}",  // url地址
+                type: "POST",   // 请求类型
+                data: $(this).serialize(),  // 获取评论内容数据
+                cache: false,   // 不缓存
+                // 如果提交成功，则在评论区显示评论内容
+                success: function (data) {
+                    console.log(data);
+                    if(data['status']=='SUCCESS'){
+                        // 插入数据
+                        var comment_html = '<div>'+ data['username'] +' ('+ data['comment_time'] +'): '+ data['text'] +'</div>';
+                        $('#comment_list').prepend(comment_html);
+                        // 提交完数据，清空编辑区
+                        CKEDITOR.instances['id_text'].setData('');
+                    }else {
+                        // 显示错误信息
+                        $('#comment_error').text(data['message']);
+                    }
+                },
+                error: function (xhr) {
+                    console.log(xhr);
+                },
+            });
+            // 阻止请求提交（作用：防止刷新页面）
+            return false;
+        })
+    </script>
 {% endblock %}

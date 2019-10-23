@@ -46,8 +46,7 @@
             </div>
         </div>
     </div>
-    {% block content %}
-
-    {% endblock %}
+    {% block content %}{% endblock %}   {# 模板标签，其他网页继承主网页,在此block内填写相关网页内容 #}
+    {% block script_extends %} {% endblock %}   {# 模板标签，js代码，用于其他网页ajax/JavaScript的代码编写 #}
 </body>
 </html>

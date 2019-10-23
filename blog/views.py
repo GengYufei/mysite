@@ -84,7 +84,7 @@ def blog_detail(request, blog_pk):
     read_cookie_key = read_statistics_once_read(request, blog)
     # 作用：评论区展示评论内容
     blog_content_type = ContentType.objects.get_for_model(blog)     # 获取博客的content_type类型
-    # 得到相关评论内容
+    # 得到相关评论内容(从数据库取数据)
     comments = Comment.objects.filter(content_type=blog_content_type, object_id=blog.pk)
 
     # 依据创建时间，获取比当前博客创建时间晚的相邻的第一条博客列表
