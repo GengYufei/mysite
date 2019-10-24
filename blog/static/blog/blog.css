@@ -45,3 +45,13 @@ h3.comment-area-title {
 div.django-ckeditor-widget {
     width:100%;
 }
+
+/*设置评论回复区样式*/
+div.comment {
+    border-bottom: 1px dashed #ccc; /* 添加边框，线条：虚线， */
+    margin-bottom: 0.5em;
+    padding-bottom: 0.5em;
+}
+div.reply {
+    margin-left: 2em;
+}

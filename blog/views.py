@@ -85,7 +85,7 @@ def blog_detail(request, blog_pk):
     # 作用：评论区展示评论内容
     blog_content_type = ContentType.objects.get_for_model(blog)     # 获取博客的content_type类型
     # 得到相关评论内容(从数据库取数据)
-    comments = Comment.objects.filter(content_type=blog_content_type, object_id=blog.pk)
+    comments = Comment.objects.filter(content_type=blog_content_type, object_id=blog.pk, parent=None)
 
     # 依据创建时间，获取比当前博客创建时间晚的相邻的第一条博客列表
     context = {}
@@ -93,10 +93,11 @@ def blog_detail(request, blog_pk):
     # 依据创建时间，获取比当前博客创建时间早的相邻的第一条博客列表
     context['next_blog'] = Blog.objects.filter(created_time__lt=blog.created_time).first()
     context['blog'] = blog
-    context['comments'] = comments  # 返回评论内容到前端页面
+    context['comments'] = comments.order_by('-comment_time')  # 返回评论内容到前端页面
     # 评论表单类实例化
     context['comment_form'] = CommentForm(initial={'content_type': blog_content_type.model,
-                                                   'object_id': blog_pk})
+                                                   'object_id': blog_pk,
+                                                   'reply_comment_id': 0})
     response = render(request, 'blog/blog_detail.html', context)     # 响应
     response.set_cookie(read_cookie_key, 'true')   # 设置cookie，博客阅读统计
     return response

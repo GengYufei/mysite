@@ -21,9 +21,18 @@ class Comment(models.Model):
     # 关联到Django自带的用户管理系统,需要引用模型：from django.contrib.auth.models import User
     # 外键关联到‘User’
     # on_delete=models.DO_NOTHING：当删除本表结构的user时，对Django自带用户管理数据不做任何操作
-    user = models.ForeignKey(User, on_delete=models.DO_NOTHING)
+    # related_name='',反向解析
+    user = models.ForeignKey(User, related_name='comments', on_delete=models.DO_NOTHING)
 
+    # 以下为：评论回复功能
+    root = models.ForeignKey('self', related_name='root_comment',  null=True, on_delete=models.DO_NOTHING)
+    # parent代表父节点（即要回复的对象），利用的树结构模型，
+    parent = models.ForeignKey('self', related_name='parent_comment', null=True, on_delete=models.DO_NOTHING)
+    reply_to = models.ForeignKey(User, related_name='replies', null=True, on_delete=models.DO_NOTHING)
+
+
+    def __str__(self):
+        return self.text
     class Meta:
         # 排序设置：倒序排序
         ordering = ['-comment_time']    # 根据创建评论时间，倒序排序
-

@@ -63,6 +63,10 @@
                     {% if user.is_authenticated %}
                         <form id="comment-form" action="{% url 'update_comment' %}" method="post" style="overflow: hidden">
                             <label>{{ user.username }}，欢迎评论～</label>
+                            <div id="reply_content_container" style="display: none;">
+                                <p>回复：</p>
+                                <div id="reply_content"></div>
+                            </div>
                             {% csrf_token %}    {# 防御CSRF攻击 #}
                             {% for field in comment_form %}
                                 {{ field }}
@@ -81,13 +85,30 @@
                     <h3 class="comment-area-title">评论列表区</h3>
                     <div id="comment_list">
                         {% for comment in comments %}
-                            <div>
-                                {{ comment.user.username }}
-                                ({{ comment.comment_time|date:'Y-m-d H:i:s' }}):
-                                {{ comment.text|safe }}     {# |safe:评论文字内容转义成文本样式 #}
+                            <div id="root_{{ comment.pk }}" class="comment">
+                                <span>{{ comment.user.username }}</span>
+                                <span>({{ comment.comment_time|date:'Y-m-d H:i:s' }}):</span>
+                                <div id="comment_{{ comment.pk }}">
+                                    {{ comment.text|safe }}     {# |safe:评论文字内容转义成文本样式 #}
+                                </div>
+                                <a href="javascript:reply({{ comment.pk }})">回复</a>
+
+                                {# 评论回复内容 #}
+                                {% for reply in comment.root_comment.all %}
+                                    <div class="reply">
+                                        <span>{{ reply.user.username }}</span>
+                                        <span>({{ reply.comment_time|date:'Y-m-d H:i:s' }})</span>
+                                        <span>回复</span>
+                                        <span>{{ reply.reply_to.username }}:</span>
+                                        <div id="comment_{{ comment.pk }}">
+                                            {{ reply.text|safe }}     {# |safe:评论文字内容转义成文本样式 #}
+                                        </div>
+                                        <a href="javascript:reply({{ reply.pk }})">回复</a>
+                                    </div>
+                                {% endfor %}
                             </div>
                         {% empty %}
-                            暂无评论
+                            <span id="no_comment">暂无评论</span>
                         {% endfor %}
                     </div>
                 </div>
@@ -99,6 +120,7 @@
 {# ajax/javascript样式代码块 #}
 {% block script_extends %}
     <script type="text/javascript">
+        // 评论区
         $("#comment-form").submit(function () {
             $('#comment_error').text('');
             // 判断评论内容是否为空
@@ -120,10 +142,40 @@
                     console.log(data);
                     if(data['status']=='SUCCESS'){
                         // 插入数据
-                        var comment_html = '<div>'+ data['username'] +' ('+ data['comment_time'] +'): '+ data['text'] +'</div>';
-                        $('#comment_list').prepend(comment_html);
+                        {#var comment_html = '<div>'+ data['username'] +' ('+ data['comment_time'] +'): '+ data['text'] +'</div>';#}
+                        {#$('#comment_list').prepend(comment_html);#}
+
+                        if($('#reply_comment_id').val()==0){
+                            // 插入评论
+                            var comment_html = '<div id="root_'+ data['pk'] +'" class="comment">'+
+                                '<span>'+ data['username'] +'</span>'+
+                                '<span>('+ data['comment_time'] +'): </span>'+
+                                '<div id="comment_'+ data['pk'] +'">'+
+                                    data['text'] +
+                                '</div>'+
+                                '<a href="javascript:reply('+ data['pk'] +')">回复</a>'+
+                                '</div>';
+                            $('#comment_list').prepend(comment_html);
+                        }else {
+                            // 插入回复
+
+                            var reply_html = '<div class="reply">\n' +
+                                '<span>'+ data['username'] +'</span>\n' +
+                                '<span>('+ data['comment_time'] +')</span>\n' +
+                                '<span>回复</span>\n' +
+                                '<span>'+ data['reply_to'] +':</span>\n' +
+                                '<div id="comment_'+ data['pk'] +'">\n' +
+                                data['text'] +
+                                '</div>\n' +
+                                '<a href="javascript:reply('+ data['pk'] +')">回复</a>\n' +
+                            '</div>';
+                            $('#root_'+ data['root_pk']).append(reply_html);
+                        }
                         // 提交完数据，清空编辑区
                         CKEDITOR.instances['id_text'].setData('');
+                        $('#reply_content_container').hide();
+                        $('#reply_comment_id').val('0');
+                        $('#no_comment').remove();
                     }else {
                         // 显示错误信息
                         $('#comment_error').text(data['message']);
@@ -136,5 +188,20 @@
             // 阻止请求提交（作用：防止刷新页面）
             return false;
         })
+
+        // 回复区
+        function reply(reply_comment_id) {
+            // 设置值
+            $('#reply_comment_id').val(reply_comment_id);
+            var html = $('#comment_' + reply_comment_id).html();
+            $('#reply_content').html(html);
+            $('#reply_content_container').show();
+            $('html').animate({scrollTop: $('#comment-form').offset().top - 60}, 300, function () {
+                CKEDITOR.instances['id_text'].focus();
+            })
+
+        }
     </script>
+
 {% endblock %}
+
