@@ -33,7 +33,8 @@ def update_comment(request):
         # 返回json数据,获取数据成功
         data['status'] = 'SUCCESS'
         data['username'] = comment.user.username
-        data['comment_time'] = comment.comment_time.strftime('%Y-%m-%d %H:%M:%S')
+        # 时间戳timestamp
+        data['comment_time'] = comment.comment_time.timestamp()
         data['text'] = comment.text
         if not parent is None:
             data['reply_to'] = comment.reply_to.username

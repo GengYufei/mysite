@@ -30,9 +30,9 @@ class Blog(models.Model, ReadNumExpandMethod):
     博文模型：文章标题、文章内容、作者、创建时间、更新时间
     '''
     title = models.CharField(max_length=50)  # 文章标题
-    blog_type = models.ForeignKey(BlogType, on_delete=models.DO_NOTHING)  # 博文分类，连接外键
+    blog_type = models.ForeignKey(BlogType, on_delete=models.CASCADE)  # 博文分类，连接外键
     content = RichTextUploadingField()  # 文章内容(调用了Django自带的富文本编辑器)
-    author = models.ForeignKey(User, on_delete=models.DO_NOTHING)  # 文章作者，创建外键，关联Django自带的作者模型
+    author = models.ForeignKey(User, on_delete=models.CASCADE)  # 文章作者，创建外键，关联Django自带的作者模型
 
     created_time = models.DateTimeField(auto_now_add=True)  # 设置文章创建时间
     last_updated_time = models.DateTimeField(auto_now=True)  # 设置文章更新时间
