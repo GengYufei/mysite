@@ -16,7 +16,12 @@ from comment.forms import CommentForm   # 从APP comment的forms模块导入Comm
 def get_blog_list_common_data(request, blogs_all_list):
     # 从settings文件中获取每页的文章数量EACH_PAGE_BLOGS_NUMBER
     paginator = Paginator(blogs_all_list, settings.EACH_PAGE_BLOGS_NUMBER)
-    page_num = request.GET.get('page', 1)   # 获取url的页码参数（GET请求）
+    # 获取url的页码参数（GET请求）
+    # 'page'相当于字典类型的键，用于获取get请求包里对应的‘页码值’
+    # ‘1’，默认值，当‘page’对应的值为空时，默认返回1
+    # 返回值为‘int’
+    page_num = request.GET.get('page', 1)
+    # print(type(page_num))
     page_of_blogs = paginator.get_page(page_num)    # 获取相应页面
     current_page_num = page_of_blogs.number     # 获取当前页码
 
@@ -74,7 +79,7 @@ def get_blog_list_common_data(request, blogs_all_list):
 
 # 博客列表
 def blog_list(request):
-    blogs_all_list = Blog.objects.all()
+    blogs_all_list = Blog.objects.all()     # 从数据库获取‘博客表结构的所有记录’，返回一个列表
     context = get_blog_list_common_data(request, blogs_all_list)
     return render(request, 'blog/blog_list.html', context)
 

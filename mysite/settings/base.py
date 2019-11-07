@@ -28,9 +28,10 @@ INSTALLED_APPS = [
     'ckeditor',  # 添加富文本编辑器（app）,Django自带第三方库
     'ckeditor_uploader',  # 增加图片上传功能，第三方库（pillow）
 
-    'blog',    # 添加自定义APP：博客
-    'read_statistics',    # 添加自定义APP：七天阅读统计
-    'comment',    # 添加自定义APP:评论功能
+    # 'blog',    # 添加自定义APP：博客
+    'blog.apps.BlogConfig',  # 注册blog应用，“汉化作用”
+    'read_statistics.apps.ReadStatisticsConfig',    # 添加自定义APP：七天阅读统计
+    'comment.apps.CommentConfig',    # 添加自定义APP:评论功能,并汉化应用名
 
 ]
 
@@ -116,7 +117,8 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')    # 多媒体文件保存路径
 # 配置ckeditor
 CKEDITOR_UPLOAD_PATH = 'upload/'
 
-# 自定义参数(用于APP-blog下的views.py下的get_blog_list_common_data方法，用于设置每个网页最多显示几条博客)
+# 自定义参数(用于APP-blog下的views.py下的get_blog_list_common_data方法，
+# 用于设置每个网页最多显示几条博客)
 EACH_PAGE_BLOGS_NUMBER = 7
 
 # 缓存设置(服务器后台)，暂时保存一些常用数据
@@ -129,6 +131,70 @@ CACHES = {
 
 # 评论功能区的配置文件，（APP-comment下的forms.py文件下的，文本编辑区：text）
 CKEDITOR_CONFIGS = {
+
+'default': {
+        'skin': 'moono',
+        # 'skin': 'office2013',
+        'toolbar_Basic': [
+            ['Source', '-', 'Bold', 'Italic']
+        ],
+        'toolbar_YourCustomToolbarConfig': [
+            {'name': 'document', 'items': ['Source', '-', 'Save', 'NewPage', 'Preview', 'Print', '-', 'Templates']},
+            {'name': 'clipboard', 'items': ['Cut', 'Copy', 'Paste', 'PasteText', 'PasteFromWord', '-', 'Undo', 'Redo']},
+            {'name': 'editing', 'items': ['Find', 'Replace', '-', 'SelectAll']},
+            {'name': 'forms',
+             'items': ['Form', 'Checkbox', 'Radio', 'TextField', 'Textarea', 'Select', 'Button', 'ImageButton',
+                       'HiddenField']},
+            '/',
+            {'name': 'basicstyles',
+             'items': ['Bold', 'Italic', 'Underline', 'Strike', 'Subscript', 'Superscript', '-', 'RemoveFormat']},
+            {'name': 'paragraph',
+             'items': ['NumberedList', 'BulletedList', '-', 'Outdent', 'Indent', '-', 'Blockquote', 'CreateDiv', '-',
+                       'JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock', '-', 'BidiLtr', 'BidiRtl',
+                       'Language']},
+            {'name': 'links', 'items': ['Link', 'Unlink', 'Anchor']},
+            {'name': 'insert',
+             'items': ['Image', 'Flash', 'Table', 'HorizontalRule', 'Smiley', 'SpecialChar', 'PageBreak', 'Iframe']},
+            '/',
+            {'name': 'styles', 'items': ['Styles', 'Format', 'Font', 'FontSize']},
+            {'name': 'colors', 'items': ['TextColor', 'BGColor']},
+            {'name': 'tools', 'items': ['Maximize', 'ShowBlocks']},
+            {'name': 'about', 'items': ['About']},
+            '/',  # put this to force next toolbar on new line
+            {'name': 'yourcustomtools', 'items': [
+                # put the name of your editor.ui.addButton here
+                'Preview',
+                'Maximize',
+
+            ]},
+        ],
+        'toolbar': 'YourCustomToolbarConfig',  # put selected toolbar config here
+        # 'toolbarGroups': [{ 'name': 'document', 'groups': [ 'mode', 'document', 'doctools' ] }],
+        # 'height': 291,
+        # 'width': '100%',
+        # 'filebrowserWindowHeight': 725,
+        # 'filebrowserWindowWidth': 940,
+        # 'toolbarCanCollapse': True,
+        # 'mathJaxLib': '//cdn.mathjax.org/mathjax/2.2-latest/MathJax.js?config=TeX-AMS_HTML',
+        'tabSpaces': 4,
+        'extraPlugins': ','.join([
+            'uploadimage', # the upload image feature
+            # your extra plugins here
+            'div',
+            'autolink',
+            'autoembed',
+            'embedsemantic',
+            'autogrow',
+            # 'devtools',
+            'widget',
+            'lineutils',
+            'clipboard',
+            'dialog',
+            'dialogui',
+            'elementspath'
+        ]),
+    },
+
     'comment_ckeditor': {
         'toolbar': 'custom',    # 工具栏
         # 工具栏包含哪些内容（自定义设置）

@@ -33,7 +33,7 @@ DATABASES = {
         'HOST': '127.0.0.1',
         'PORT': '3306',
         'USER': 'root',
-        'PASSWORD': '!@#qweasdzxc',
-        'NAME': 'blog',     # 数据库名称
+        'PASSWORD': '!@#$qwerasdfzxcv',
+        'NAME': 'mysite_db',     # 数据库名称
     }
 }

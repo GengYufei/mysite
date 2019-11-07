@@ -15,6 +15,15 @@ class BlogType(models.Model):
     def __str__(self):  # 显示字符内容
         return self.type_name
 
+    # class Meta做为嵌套类，主要目的是给上级类添加一些功能，或者指定一些标准
+    class Meta:
+        # 通过verbose_name来指定对应的model在admin后台的显示名称，这里verbose_name_plural
+        # 用来表示多篇文章时的复数显示形式。英语中，如果有多篇文章，就会显示为Posts，表示复数，
+        # 中文没有复数表现形式，所以定义为和verbose_name一样。
+        # verbose_name = '博客类型'
+        # verbose_name_plural = verbose_name
+        pass
+
 
 class Blog(models.Model, ReadNumExpandMethod):
     '''
@@ -35,7 +44,13 @@ class Blog(models.Model, ReadNumExpandMethod):
         return '<Blog:%s>' % self.title
         # return self.title
 
-    # 排序规则定义
+    # class Meta做为嵌套类，主要目的是给上级类添加一些功能，或者指定一些标准
     class Meta:
-        ordering = ['-created_time']  # 根据创建时间排序，‘-’代表倒序（最新的时间）
+        ordering = ['-created_time']  # 设置数据库，根据创建时间排序，‘-’代表倒序（最新的时间）
+
+        # 通过verbose_name来指定对应的model在admin后台的显示名称，这里verbose_name_plural
+        # 用来表示多篇文章时的复数显示形式。英语中，如果有多篇文章，就会显示为Posts，表示复数，
+        # 中文没有复数表现形式，所以定义为和verbose_name一样。
+        # verbose_name = '博客'
+        # verbose_name_plural = verbose_name
 

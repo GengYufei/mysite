@@ -10,6 +10,8 @@ class BlogTypeAdmin(admin.ModelAdmin):
     list_display = ('id', 'type_name')
 
 
+# 该装饰器作用等价于下面：
+# admin.site.register(Blog,BlogAdmin)
 @admin.register(Blog)
 class BlogAdmin(admin.ModelAdmin):
     # list_display = ('title', 'blog_type', 'author', 'get_read_num', 'created_time', 'last_updated_time')
