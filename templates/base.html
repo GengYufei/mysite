@@ -39,8 +39,11 @@
                     <li class="{% block nav_blog_active %}{% endblock %}">
                         <a href="{% url 'blog_list' %}">博客</a>
                     </li>
+                    <li class="{% block nav %}{% endblock %}">
+                        <a href="{% url 'about_me' %}">...</a>
+                    </li>
                     <li class="{% block nav_aboutme_active %}{% endblock %}">
-                        <a href="{% url 'blog_list' %}">关于我</a>
+                        <a href="{% url 'about_me' %}">关于我</a>
                     </li>
                 </ul>
             </div>

@@ -68,3 +68,16 @@ p#reply_title {
     padding-bottom: 0.5em;
 
 }
+
+/*blog_detail.html, 博客文章内容增加样式*/
+div.blog-content {
+    text-indent: 2em;
+    margin-bottom: 2em;
+}
+
+/*博客列表界面，增加上边距*/
+div#blog_list_container{
+    /*margin-top: 70px;*/
+    margin-top: 70px!important;
+}
+

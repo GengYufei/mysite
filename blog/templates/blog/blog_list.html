@@ -1,7 +1,7 @@
 {#blog_list.html#}
 {% extends 'base.html' %}
 {% load staticfiles %}
-{% load comment_tags %}
+{% load comment_tags %}    {# 装载有关评论内容的自定义标签 #}
 
 {#链接：CSS JS jQuery#}
 {% block header_extends %}
@@ -19,7 +19,7 @@
 {% endblock %}
 
 {% block content %}
-    <div class="container">
+    <div class="container" id="blog_list_container">
         <div class="row">
             {# 左边栏：博文内容列表 #}
             <div class="col-sm-8 col-md-9 col-lg-10">
@@ -39,11 +39,11 @@
                                     <span class="glyphicon glyphicon-tag" aria-hidden="true"></span> {# 书签符号 #}
                                     <a href="{% url 'blogs_wiht_type' blog.blog_type.pk %}">
                                     {{ blog.blog_type }}&nbsp;
-                                    </a>
+                                    </a>&nbsp;&nbsp;
                                     <span class="glyphicon glyphicon-time" aria-hidden="true"></span>   {# 时间符号 #}
-                                    {{ blog.created_time|date:'Y-m-d' }}&nbsp;
-                                    阅读（{{ blog.get_read_num }}）
-                                    评论（{% get_comment_count blog %}）
+                                    {{ blog.created_time|date:'Y-m-d' }}&nbsp;&nbsp;
+                                    阅读（{{ blog.get_read_num }}）&nbsp;&nbsp;
+                                    评论（{% get_comment_count blog %}）&nbsp;&nbsp;
                                 </p>
                                 {# striptags过滤器：过滤掉HTML标签 #}
                                 {# truncatechars过滤器：截取文章的前120个字符 #}

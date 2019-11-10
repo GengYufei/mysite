@@ -32,6 +32,7 @@ INSTALLED_APPS = [
     'blog.apps.BlogConfig',  # 注册blog应用，“汉化作用”
     'read_statistics.apps.ReadStatisticsConfig',    # 添加自定义APP：七天阅读统计
     'comment.apps.CommentConfig',    # 添加自定义APP:评论功能,并汉化应用名
+    'about_me',     # APP注册，‘关于我’主界面
 
 ]
 

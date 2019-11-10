@@ -1,5 +1,5 @@
-{% extends 'base.html' %}
-{% load comment_tags %}
+{% extends 'base.html' %}   {# 继承base.html模板 #}
+{% load comment_tags %}     {# 装载有关评论内容的自定义标签 #}
 
 {#页面title#}
 {% block title %}
@@ -38,6 +38,7 @@
                 </ul>
                 {# |safe,过滤器：在博客文章中，识别HTML标签 #}
                 <div class="blog-content">{{ blog.content|safe }}</div>
+
                 <div class="blog-more">
                     <p>
                         上一篇：

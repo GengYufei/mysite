@@ -1,0 +1,144 @@
+{#about_me.html#}
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+{#链接：CSS JS jQuery#}
+{% block header_extends %}
+    <link rel="stylesheet" href="{% static 'about_me/about_me.css' %}">
+    <link rel="stylesheet" href="{% static 'about_me/css/an-skill-bar.css' %}">
+{#    <link rel="stylesheet" href="{% static 'about_me/css/main.css' %}">#}
+{% endblock %}
+
+{#页面title#}
+{% block title %}
+    关于我
+{% endblock %}
+
+{#导航#}
+{% block nav_aboutme_active %}
+    active
+{% endblock %}
+
+{% block content %}
+    <div class="container_">
+        <div class="row">
+            <div class="
+            col-sm-8 col-sm-offset-2
+            col-md-10 col-md-offset-1
+            col-lg-10 col-lg-offset-1
+            "
+                 id="id_base">
+                <div><h2 style="margin-left: 0.5em;">关于我</h2></div>
+                 {# 增加横线 #}
+                <hr class="about-me-hr"/>
+                 {# 增加‘个人简介’字样 #}
+                <div class="div-self-introduce-font">
+                        <h3 id="id-introduce-h3">个人简介</h3>
+                </div>
+                <div class="div-contents-introduce">
+                    <div align="center">
+                        <img class="self-picture" src="{% static 'about_me/images/self_picture.jpg' %}" alt="">
+                    </div>
+                    <p  class="contents-introduce-name">耿雨飞</p>
+                    <p  class="contents-introduce">来自河北，现居北京</p>
+                    <p  class="contents-introduce">涉及方向：网络爬虫、Web开发等</p>
+                    <p  class="contents-introduce">爱编程、爱钻研、爱生活、爱音乐、爱爬山。</p>
+                    <p  class="contents-introduce">无一事敢懈怠,无一日敢马虎,心存敬畏之心,不可得意忘形。</p>
+                </div>
+                 {# 增加‘我的技能树’字样 #}
+                <div class="div-self-introduce-font">
+                    <h3 id="id-introduce-h3">我的技能树</h3>
+                </div>
+
+                 {# 增加技能树图表 #}
+                <div class="technique-tree">
+                    <div id="skill">
+                        <div class="skillbar html">
+                          <div class="filled" data-width="85%"></div>
+                          <span class="title">PYTHON</span>
+                          <span class="percent">85%</span>
+                        </div>
+
+                        <div class="skillbar css">
+                          <span class="title"></i>MySql</span>
+                          <span class="percent">60%</span>
+                          <div class="filled" data-width="60%"></div>
+                        </div>
+
+                        <div class="skillbar js">
+                          <span class="title">Django</span>
+                          <span class="percent">70%</span>
+                          <div class="filled" data-width="70%"></div>
+                        </div>
+
+                        <div class="skillbar php">
+                          <span class="title">HTML</span>
+                          <span class="percent">70%</span>
+                          <div class="filled" data-width="70%"></div>
+                        </div>
+
+                        <div class="skillbar sass">
+                          <span class="title"></i> CSS</span>
+                          <span class="percent">50%</span>
+                          <div class="filled" data-width="50%"></div>
+                        </div>
+
+{#                        <div class="skillbar indesign">#}
+{#                          <span class="title"></i> JS</span>#}
+{#                          <span class="percent">30%</span>#}
+{#                          <div class="filled" data-width="30%"></div>#}
+{#                        </div>#}
+
+                        <div class="skillbar css">
+                          <span class="title"></i> JS</span>
+                          <span class="percent">30%</span>
+                          <div class="filled" data-width="30%"></div>
+                        </div>
+
+                        <div class="skillbar">
+                          <span class="title"></i> Linux</span>
+                          <span class="percent">65%</span>
+                          <div class="filled" data-width="65%"></div>
+                        </div>
+
+{#                        <div class="skillbar">#}
+{#                          <span class="title"></i> less</span>#}
+{#                          <span class="percent">50%</span>#}
+{#                          <div class="filled" data-width="50%"></div>#}
+{#                        </div>#}
+
+                        <div class="skillbar indesign">
+                          <span class="title"></i> Git</span>
+                          <span class="percent">600%</span>
+                          <div class="filled" data-width="60%"></div>
+                        </div>
+
+                      </div>
+                </div>
+
+                 {# 增加联系我区域 #}
+                <div class="div-self-introduce-font">
+                    <h3 id="id-introduce-h3">与我联系</h3>
+                </div>
+                <div class="div-contents-introduce">
+                    <p  class="contents-introduce">个人微信号</p>
+                    <p  class="contents-introduce">扫码或搜索：gyf1013gg</p>
+                    <div align="center">
+                        <img class="weixin-picture" src="{% static 'about_me/images/weixin-connection.jpg' %}" alt="">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block script_extends %}
+    <script src="{% static 'about_me/js/jquery-1.11.0.min.js' %}" type="text/javascript"></script>
+    <script src="{% static 'about_me/js/an-skill-bar.js' %}"></script>
+    <script src="{% static 'about_me/js/main.js' %}"></script>
+
+{#    <div style="text-align:center;clear:both;">#}
+{#    <script src="/gg_bd_ad_720x90.js" type="text/javascript"></script>#}
+{#    <script src="/follow.js" type="text/javascript"></script>#}
+{#    </div>#}
+{% endblock %}

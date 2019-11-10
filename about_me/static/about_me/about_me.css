@@ -1,0 +1,98 @@
+/**{*/
+/*    margin: 0;*/
+/*}*/
+
+/*消除row的左右外边距*/
+div.row{
+    margin-left: 0px;
+    margin-right: 0px;
+}
+
+/*id_base:中间内容页面*/
+div#id_base{
+    border: 1px solid white;
+    border-radius: 20px;
+    /*height: 1800px;*/
+    margin-top: 52px;
+    padding-left: 0px;
+    padding-right: 0px;
+    background-color: white;
+
+}
+
+/*对最外边div进行设置*/
+div.container_{
+    background-color: #F1F1F1;
+    width: 100%;
+    margin-top: 51px;
+
+}
+
+/*对横线增加样式*/
+div.about-me-hr{
+    height:1px;
+    width: 100%;
+    border:none;
+    background: rgba(238, 238, 238,1);  /* 设置横线背景色即透明度 */
+}
+
+/*对标题进行样式设置*/
+div.div-self-introduce-font{
+    border-top: 1px solid white;
+    border-right: 1px solid white;
+    border-bottom: 1px solid white;
+    border-left: 2px solid green;
+    width: 100%;height: 52px;
+    background-color: #F3F3F3;
+    margin:0 auto;
+}
+
+/*对标题字体进行设置*/
+#id-introduce-h3{
+    margin-top: 10px;
+    /*margin-bottom: 0px;*/
+    /*margin: 0 auto;*/
+    text-align: center;
+}
+
+/*设置个人简介，div内外边距的格式*/
+div.div-contents-introduce{
+    margin-top: 40px;
+    margin-bottom: 40px;
+}
+
+/*设置个人照片格式*/
+img.self-picture{
+    width: 120px;
+    height: 120px;
+    margin-bottom: 2em;
+}
+
+/*设置个人简介，具体文本内容的格式*/
+div p.contents-introduce-name{
+    text-align: center;
+    font-family: 'Microsoft Sans Serif', Tahoma, Arial, Verdana, Sans-Serif;
+    font-weight: bold;
+    font-size: 1.5em;
+}
+div p.contents-introduce{
+    text-align: center;
+    font-family: Arial;
+    font-size: 1.1em;
+}
+
+/*设置技能树格式*/
+div.technique-tree{
+    margin-top: 5em;
+    margin-bottom: 5em;
+    margin-right: 10em;
+    margin-left: 10em;
+}
+
+
+
+/*与我联系：微信号往右浮动*/
+img.weixin-picture{
+    width: 200px;
+    height: 200px;
+}
