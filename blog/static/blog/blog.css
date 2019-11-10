@@ -81,3 +81,8 @@ div#blog_list_container{
     margin-top: 70px!important;
 }
 
+/*博客详情界面，增加上边距*/
+div#blog_detail_container{
+    /*margin-top: 70px;*/
+    margin-top: 70px!important;
+}
