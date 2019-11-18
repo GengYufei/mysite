@@ -21,98 +21,100 @@
 
 {#页面内容#}
 {% block content %}
-    <div class="container" id="blog_detail_container">
-        <div class="row">
-            <div class="col-xs-10 col-xs-offset-1">
-                <h3>{{ blog.title }}</h3>
-                <ul class="blog-info-description">
-                    <li>作者：{{ blog.author }}</li>
-                    <li>发表日期：{{ blog.created_time|date:'Y-m-d H:i:s' }}</li>
-                    <li>分类：
-                        <a href="{% url 'blogs_wiht_type' blog.blog_type.pk %}">
-                            {{ blog.blog_type }}
-                        </a>
-                    </li>
-                    <li>阅读({{ blog.get_read_num }})</li>
-                    <li>评论（{% get_comment_count blog %}）</li>
-                </ul>
-                {# |safe,过滤器：在博客文章中，识别HTML标签 #}
-                <div class="blog-content">{{ blog.content|safe }}</div>
+    <div class="blog_detail_out_div">
+        <div class="container" id="blog_detail_container">
+            <div class="row">
+                <div class="col-xs-10 col-xs-offset-1" id="blog_detail_row_1">
+                    <h3>{{ blog.title }}</h3>
+                    <ul class="blog-info-description">
+                        <li>作者：{{ blog.author }}</li>
+                        <li>发表日期：{{ blog.created_time|date:'Y-m-d H:i:s' }}</li>
+                        <li>分类：
+                            <a href="{% url 'blogs_wiht_type' blog.blog_type.pk %}">
+                                {{ blog.blog_type }}
+                            </a>
+                        </li>
+                        <li>阅读({{ blog.get_read_num }})</li>
+                        <li>评论（{% get_comment_count blog %}）</li>
+                    </ul>
+                    {# |safe,过滤器：在博客文章中，识别HTML标签 #}
+                    <div class="blog-content">{{ blog.content|safe }}</div>
 
-                <div class="blog-more">
-                    <p>
-                        上一篇：
-                        {% if previous_blog %}
-                            <a href="{% url 'blog_detail' previous_blog.pk %}">{{ previous_blog.title }}</a>
-                        {% else %}
-                            没有了
-                        {% endif %}
-                    </p>
-                    <p>
-                        下一篇：
-                        {% if next_blog %}
-                            <a href="{% url 'blog_detail' next_blog.pk %}">{{ next_blog.title }}</a>
-                        {% else %}
-                            没有了
-                        {% endif %}
-                    </p>
+                    <div class="blog-more">
+                        <p>
+                            上一篇：
+                            {% if previous_blog %}
+                                <a href="{% url 'blog_detail' previous_blog.pk %}">{{ previous_blog.title }}</a>
+                            {% else %}
+                                没有了
+                            {% endif %}
+                        </p>
+                        <p>
+                            下一篇：
+                            {% if next_blog %}
+                                <a href="{% url 'blog_detail' next_blog.pk %}">{{ next_blog.title }}</a>
+                            {% else %}
+                                没有了
+                            {% endif %}
+                        </p>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="row">
-            <div class="col-xs-10 col-xs-offset-1">
-                <div class="comment-area">
-                    <h3 class="comment-area-title">提交评论</h3>
-                    {% if user.is_authenticated %}
-                        <form id="comment-form" action="{% url 'update_comment' %}" method="post" style="overflow: hidden">
-                            <label>{{ user.username }}，欢迎评论～</label>
-                            <div id="reply_content_container" style="display: none;">
-                                <p id="reply_title">回复：</p>
-                                <div id="reply_content"></div>
-                            </div>
-                            {% csrf_token %}    {# 防御CSRF攻击 #}
-                            {% for field in comment_form %}
-                                {{ field }}
-                            {% endfor %}
-                            <span id="comment_error" class="text-danger pull-left"></span>
-                            <input type="submit" value="评论" class="btn btn-primary pull-right">
-                        </form>
-                    {% else %}
-                        您尚未登录，登录之后方可评论～
-                        <a class="btn btn-primary" href="{% url 'login' %}?from={{ request.get_full_path }}">登录</a>
-                        <span> or </span>
-                        <a class="btn btn-danger" href="{% url 'register' %}?from={{ request.get_full_path }}">注册</a>
-                    {% endif %}
-                </div>
-                <div class="comment-area">
-                    <h3 class="comment-area-title">评论列表区</h3>
-                    <div id="comment_list">
-                        {% for comment in comments %}
-                            <div id="root_{{ comment.pk }}" class="comment">
-                                <span>{{ comment.user.username }}</span>
-                                <span>({{ comment.comment_time|date:'Y-m-d H:i:s' }}):</span>
-                                <div id="comment_{{ comment.pk }}">
-                                    {{ comment.text|safe }}     {# |safe:评论文字内容转义成文本样式 #}
+            <div class="row">
+                <div class="col-xs-10 col-xs-offset-1" id="blog_detail_row_2">
+                    <div class="comment-area">
+                        <h3 class="comment-area-title">提交评论</h3>
+                        {% if user.is_authenticated %}
+                            <form id="comment-form" action="{% url 'update_comment' %}" method="post" style="overflow: hidden">
+                                <label>{{ user.username }}，欢迎评论～</label>
+                                <div id="reply_content_container" style="display: none;">
+                                    <p id="reply_title">回复：</p>
+                                    <div id="reply_content"></div>
                                 </div>
-                                <a href="javascript:reply({{ comment.pk }})">回复</a>
-
-                                {# 评论回复内容 #}
-                                {% for reply in comment.root_comment.all %}
-                                    <div class="reply">
-                                        <span>{{ reply.user.username }}</span>
-                                        <span>({{ reply.comment_time|date:'Y-m-d H:i:s' }})</span>
-                                        <span>回复</span>
-                                        <span>{{ reply.reply_to.username }}:</span>
-                                        <div id="comment_{{ comment.pk }}">
-                                            {{ reply.text|safe }}     {# |safe:评论文字内容转义成文本样式 #}
-                                        </div>
-                                        <a href="javascript:reply({{ reply.pk }})">回复</a>
-                                    </div>
+                                {% csrf_token %}    {# 防御CSRF攻击 #}
+                                {% for field in comment_form %}
+                                    {{ field }}
                                 {% endfor %}
-                            </div>
-                        {% empty %}
-                            <span id="no_comment">暂无评论</span>
-                        {% endfor %}
+                                <span id="comment_error" class="text-danger pull-left"></span>
+                                <input type="submit" value="评论" class="btn btn-primary pull-right">
+                            </form>
+                        {% else %}
+                            您尚未登录，登录之后方可评论～
+                            <a class="btn btn-primary" href="{% url 'login' %}?from={{ request.get_full_path }}">登录</a>
+                            <span> or </span>
+                            <a class="btn btn-danger" href="{% url 'register' %}?from={{ request.get_full_path }}">注册</a>
+                        {% endif %}
+                    </div>
+                    <div class="comment-area">
+                        <h3 class="comment-area-title">评论列表区</h3>
+                        <div id="comment_list">
+                            {% for comment in comments %}
+                                <div id="root_{{ comment.pk }}" class="comment">
+                                    <span>{{ comment.user.username }}</span>
+                                    <span>({{ comment.comment_time|date:'Y-m-d H:i:s' }}):</span>
+                                    <div id="comment_{{ comment.pk }}">
+                                        {{ comment.text|safe }}     {# |safe:评论文字内容转义成文本样式 #}
+                                    </div>
+                                    <a href="javascript:reply({{ comment.pk }})">回复</a>
+
+                                    {# 评论回复内容 #}
+                                    {% for reply in comment.root_comment.all %}
+                                        <div class="reply">
+                                            <span>{{ reply.user.username }}</span>
+                                            <span>({{ reply.comment_time|date:'Y-m-d H:i:s' }})</span>
+                                            <span>回复</span>
+                                            <span>{{ reply.reply_to.username }}:</span>
+                                            <div id="comment_{{ comment.pk }}">
+                                                {{ reply.text|safe }}     {# |safe:评论文字内容转义成文本样式 #}
+                                            </div>
+                                            <a href="javascript:reply({{ reply.pk }})">回复</a>
+                                        </div>
+                                    {% endfor %}
+                                </div>
+                            {% empty %}
+                                <span id="no_comment">暂无评论</span>
+                            {% endfor %}
+                        </div>
                     </div>
                 </div>
             </div>

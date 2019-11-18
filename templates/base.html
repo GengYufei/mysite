@@ -10,7 +10,12 @@
 
         {% endblock %}
     </title>
-    {% block header_extends %}{% endblock %}    {# 为其他HTML扩充link做准备 #}
+
+    {# 为其他HTML扩充link做准备 #}
+    {% block header_extends %}
+
+    {% endblock %}
+
     <link rel="stylesheet" href="{% static 'my_css/base.css' %}">
     <link rel="stylesheet" href="{% static 'bootstrap-3.3.7/css/bootstrap.min.css' %}">
     {# jQuery的引用一定要放在JS的前面，JS相关功能依托jQuery #}
@@ -34,22 +39,67 @@
             <div id="navbar-collapse" class="collapse navbar-collapse">
                 <ul class="nav navbar-nav">
                     <li class="{% block nav_home_active %}{% endblock %}">
-                        <a href="{% url 'home' %}">首页</a>
+
+                        <a href="{% url 'home' %}">
+                            <span class="glyphicon glyphicon-home" aria-hidden="true"></span>
+                            首页</a>
                     </li>
                     <li class="{% block nav_blog_active %}{% endblock %}">
-                        <a href="{% url 'blog_list' %}">博客</a>
+                        <a href="{% url 'blog_list' %}">
+                            <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+                            博客</a>
                     </li>
                     <li class="{% block nav %}{% endblock %}">
-                        <a href="{% url 'about_me' %}">...</a>
+                        <a href="{% url 'about_me' %}">
+                            <span class="glyphicon glyphicon-tree-conifer" aria-hidden="true"></span>
+                            ...</a>
                     </li>
                     <li class="{% block nav_aboutme_active %}{% endblock %}">
-                        <a href="{% url 'about_me' %}">关于我</a>
+                        <a href="{% url 'about_me' %}">
+                            <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+                            关于</a>
                     </li>
                 </ul>
             </div>
         </div>
     </div>
+
     {% block content %}{% endblock %}   {# 模板标签，其他网页继承主网页,在此block内填写相关网页内容 #}
     {% block script_extends %} {% endblock %}   {# 模板标签，js代码，用于其他网页ajax/JavaScript的代码编写 #}
+
+    {# 返回顶部 #}
+    <div id="goTopBtn">
+        <span class="glyphicon glyphicon-chevron-up">
+{#            &Delta;#}
+            Top
+        </span>
+    </div>
+
+    {# 返回顶部JavaScript #}
+{#    <script src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>#}
+    <script>
+        /*返回顶部*/
+        $(window).scroll(function(){
+           var sc=$(window).scrollTop();
+           var rwidth=$(window).width()
+           if(sc>0){
+            $("#goTopBtn").css("display","block");
+            $("#goTopBtn").css("left",(rwidth-60)+"px")
+           }else{
+           $("#goTopBtn").css("display","none");
+           }
+         })
+         $("#goTopBtn").click(function(){
+           var sc=$(window).scrollTop();
+           $('body,html').animate({scrollTop:0},500);
+         })
+    </script>
+
+
+    {# 备案信息 #}
+    <div class="beian">
+        <p>耿雨飞 版权所有 | 基于 Django 构建   &nbsp;&nbsp;&copy 2019 | 托管于 阿里云主机 | 京ICP备19049667号</p>
+        <p>站长统计 | 今日IP[12] | 昨日IP[6] | 当前在线[3]</p>
+    </div>
 </body>
 </html>

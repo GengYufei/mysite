@@ -84,5 +84,24 @@ div#blog_list_container{
 /*博客详情界面，增加上边距*/
 div#blog_detail_container{
     /*margin-top: 70px;*/
-    margin-top: 70px!important;
+    /*margin-top: 70px!important;*/
+    /*border: solid red;*/
+}
+
+div.blog_detail_out_div{
+    /*border: solid red;*/
+    margin-top: 50px;
+    background-color: #F0EEF5;
+}
+
+div#blog_detail_row_1{
+    background-color: white;
+    margin-top: 1em;
+}
+
+div#blog_detail_row_2{
+    background-color: white;
+    margin-top: 1em;
+    margin-bottom: 2em;
+    padding-bottom: 1em;
 }
