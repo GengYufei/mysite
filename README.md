@@ -1,2 +1,2 @@
 # mysite
-git与github演示
+个人博客
