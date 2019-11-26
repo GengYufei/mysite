@@ -26,6 +26,7 @@ urlpatterns = [
     path('blog/', include('blog.urls')),                    # 添加blog APP的URL
     path('comment/', include('comment.urls')),              # 添加comment APP的URL
     path('about_me/', include('about_me.urls')),            # 添加about_me APP的URL
+    path('actionManage/', include('actionManage.urls')),    # 添加actionManage的URL
     path('login/', views.login_, name='login'),             # 用户登录地址
     path('register/', views.register, name='register'),     # 用户注册地址
 

@@ -1,0 +1,65 @@
+
+{# actionBaseInfo_employ.html 基本信息：人员信息 #}
+
+{# 继承actionBase.html #}
+{% extends 'actionBase.html' %}
+{# 下载静态文件路径 #}
+{% load staticfiles %}
+
+{#链接：CSS JS jQuery#}
+{% block header_extends %}
+
+{% endblock %}
+
+{#页面title#}
+{% block title %}
+    行为管理|基本信息
+{% endblock %}
+
+{# 选中状态激活 #}
+{% block action_baseInfo_active %}
+    active
+{% endblock %}
+
+{# 主界面内容 #}
+{% block content %}
+    <div class="container-fluid px-xl-5">
+        <section class="py-5">
+            <div class="row">
+                <div class="col-lg-12 mb-4">
+                    <div class="card">
+                        <div class="card-header">
+                            <h6 class="text-uppercase mb-0">人员信息</h6>
+                        </div>
+                        <div class="card-body">
+                            <table class="table card-text">
+                                <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>姓名</th>
+                                        <th>性别</th>
+                                        <th>科室</th>
+                                        <th>职能</th>
+                                        <th>工号</th>
+                                        <th>备注</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <th scope="row">1</th>
+                                        <td>张三</td>
+                                        <td>男</td>
+                                        <td>神经外科</td>
+                                        <td>主任医师</td>
+                                        <td>2123</td>
+                                        <td></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+{% endblock %}

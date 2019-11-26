@@ -1,0 +1,68 @@
+
+{# actionBaseInfo_cabinet.html 基本信息：更衣柜 #}
+
+{# 继承actionBase.html #}
+{% extends 'actionBase.html' %}
+{# 下载静态文件路径 #}
+{% load staticfiles %}
+
+{#链接：CSS JS jQuery#}
+{% block header_extends %}
+
+{% endblock %}
+
+{#页面title#}
+{% block title %}
+    行为管理|基本信息
+{% endblock %}
+
+{# 选中状态激活 #}
+{% block action_baseInfo_active %}
+    active
+{% endblock %}
+
+{# 主界面内容 #}
+{% block content %}
+    <div class="container-fluid px-xl-5">
+        <section class="py-5">
+            <div class="row">
+                <div class="col-lg-12 mb-4">
+                    <div class="card">
+                        <div class="card-header">
+                            <h6 class="text-uppercase mb-0">更衣柜</h6>
+                        </div>
+                        <div class="card-body">
+                            <table class="table card-text">
+                                <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>柜号</th>
+                                        <th>RFID</th>
+                                        <th>状态</th>
+                                        <th>所在区域（男/女更）</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <th scope="row">1</th>
+                                        <td>13</td>
+                                        <td>20190523</td>
+                                        <td>占用</td>
+                                        <td>男更</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">2</th>
+                                        <td>14</td>
+                                        <td>20190513</td>
+                                        <td>闲置</td>
+                                        <td>女更</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+{% endblock %}

@@ -1,0 +1,229 @@
+{# actionBase.html #}
+{% load staticfiles %}  {#Django框架，引入静态文件static的方法#}
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    {# Django模板 extend #}
+    <title>
+        {% block title %}
+
+        {% endblock %}
+    </title>
+
+    {# 为其他HTML扩充link做准备 #}
+    {% block header_extends %}
+
+    {% endblock %}
+
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="robots" content="all,follow">
+
+    {# 自定义CSS #}
+    <link rel="stylesheet" href="{% static 'actionManage/mycss/myCss.css' %}">
+    <link rel="stylesheet" href="{% static 'my_css/base.css' %}">
+
+    <!-- Bootstrap CSS-->
+    <link rel="stylesheet" href="{% static 'actionManage/vendor/bootstrap/css/bootstrap.min.css' %}">
+{#    <link rel="stylesheet" href="vendor\bootstrap\css\bootstrap.min.css">#}
+    <!-- Font Awesome CSS-->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css"
+          integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU"
+          crossorigin="anonymous">
+    <!-- Google fonts - Popppins for copy-->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:300,400,800">
+    <!-- orion icons-->
+    <link rel="stylesheet" href="{% static 'actionManage/css/orionicons.css' %}">
+
+    <link rel="stylesheet" href="{% static 'actionManage/css/style.default.css' %}" id="theme-stylesheet">
+    <!-- Custom stylesheet - for your changes-->
+    <link rel="stylesheet" href="{% static 'actionManage/css/custom.css' %}">
+
+    {# jQuery的引用一定要放在JS的前面，JS相关功能依托jQuery #}
+    <script type="text/javascript" src="{% static 'bootstrap-3.3.7/js/jquery-1.12.4.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'bootstrap-3.3.7/js/bootstrap.min.js' %}"></script>
+
+</head>
+
+<body>
+    <!-- navbar-->
+    <header class="header">
+      <nav class="navbar navbar-expand-lg px-4 py-2 bg-white shadow">
+          <a href="#" class="sidebar-toggler text-gray-500 mr-4 mr-lg-5 lead">
+              <i class="fas fa-align-left"></i>
+          </a>
+          <a href="{% url 'actionManage_index' %}" class="navbar-brand font-weight-bold text-uppercase text-base"
+             id="actionBaseTitle"
+             style="font-family: 'Sans-Serif;font-size: 2em;">
+              手术室行为管理系统
+          </a>
+        <ul class="ml-auto d-flex align-items-center list-unstyled mb-0">
+          <li class="nav-item">
+            <form id="searchForm" class="ml-auto d-none d-lg-block">
+              <div class="form-group position-relative mb-0">
+                <button type="submit" style="top: -3px; left: 0;" class="position-absolute bg-white border-0 p-0"><i class="o-search-magnify-1 text-gray text-lg"></i></button>
+                <input type="search" placeholder="Search ..." class="form-control form-control-sm border-0 no-shadow pl-4">
+              </div>
+            </form>
+          </li>
+          <li class="nav-item dropdown mr-3"><a id="notifications" href="http://example.com" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link dropdown-toggle text-gray-400 px-1"><i class="fa fa-bell"></i><span class="notification-icon"></span></a>
+            <div aria-labelledby="notifications" class="dropdown-menu"><a href="#" class="dropdown-item">
+                <div class="d-flex align-items-center">
+                  <div class="icon icon-sm bg-violet text-white"><i class="fab fa-twitter"></i></div>
+                  <div class="text ml-2">
+                    <p class="mb-0">You have 2 followers</p>
+                  </div>
+                </div></a><a href="#" class="dropdown-item">
+                <div class="d-flex align-items-center">
+                  <div class="icon icon-sm bg-green text-white"><i class="fas fa-envelope"></i></div>
+                  <div class="text ml-2">
+                    <p class="mb-0">You have 6 new messages</p>
+                  </div>
+                </div></a><a href="#" class="dropdown-item">
+                <div class="d-flex align-items-center">
+                  <div class="icon icon-sm bg-blue text-white"><i class="fas fa-upload"></i></div>
+                  <div class="text ml-2">
+                    <p class="mb-0">Server rebooted</p>
+                  </div>
+                </div></a><a href="#" class="dropdown-item">
+                <div class="d-flex align-items-center">
+                  <div class="icon icon-sm bg-violet text-white"><i class="fab fa-twitter"></i></div>
+                  <div class="text ml-2">
+                    <p class="mb-0">You have 2 followers</p>
+                  </div>
+                </div></a>
+              <div class="dropdown-divider"></div><a href="#" class="dropdown-item text-center"><small class="font-weight-bold headings-font-family text-uppercase">View all notifications</small></a>
+            </div>
+          </li>
+          <li class="nav-item dropdown ml-auto">
+              <a id="userInfo" href="http://example.com" data-toggle="dropdown" aria-haspopup="true"
+                 aria-expanded="false" class="nav-link dropdown-toggle">
+                  <img src="{% static 'about_me/images/self_picture.jpg' %}" alt="Jason Doe" style="max-width: 2.5rem;" class="img-fluid rounded-circle shadow">
+              </a>
+            <div aria-labelledby="userInfo" class="dropdown-menu"><a href="#" class="dropdown-item"><strong class="d-block text-uppercase headings-font-family">Mark Stephen</strong><small>Web Developer</small></a>
+              <div class="dropdown-divider"></div><a href="#" class="dropdown-item">Settings</a><a href="#" class="dropdown-item">Activity log       </a>
+              <div class="dropdown-divider"></div><a href="login.html" class="dropdown-item">Logout</a>
+            </div>
+          </li>
+        </ul>
+      </nav>
+    </header>
+    <div class="d-flex align-items-stretch">
+        <div id="sidebar" class="sidebar py-3">
+            <div class="text-gray-400 text-uppercase px-3 px-lg-4 py-4 font-weight-bold small headings-font-family">
+                MAIN
+            </div>
+            <ul class="sidebar-menu list-unstyled">
+              <li class="sidebar-list-item">
+                  <a href="{% url 'actionManage_index' %}" class="sidebar-link text-muted
+                        {% block action_home_active %}{% endblock %}">
+                      <i class="o-home-1 mr-3 text-gray"></i>
+                      <span>主菜单</span>
+                  </a>
+              </li>
+
+              <li class="sidebar-list-item">
+                  <a href="#" data-toggle="collapse" data-target="#pages" aria-expanded="false"
+                     aria-controls="pages" class="sidebar-link text-muted
+                     {% block action_baseInfo_active %}{% endblock %}">
+                      <i class="o-wireframe-1 mr-3 text-gray"></i>
+                      <span>基本信息</span>
+                  </a>
+                        <div id="pages" class="collapse">
+                          <ul class="sidebar-menu list-unstyled border-left border-primary border-thick">
+                            <li class="sidebar-list-item">
+                                <a href="{% url 'actionManage_employ' %}" class="sidebar-link text-muted pl-lg-5">
+                                    人员信息</a>
+                            </li>
+                            <li class="sidebar-list-item">
+                                <a href="{% url 'actionManage_clothes' %}" class="sidebar-link text-muted pl-lg-5">
+                                    手术衣注册</a>
+                            </li>
+                            <li class="sidebar-list-item">
+                                <a href="{% url 'actionManage_shoes' %}" class="sidebar-link text-muted pl-lg-5">
+                                    手术鞋注册</a>
+                            </li>
+                            <li class="sidebar-list-item">
+                                <a href="{% url 'actionManage_cabinet' %}" class="sidebar-link text-muted pl-lg-5">
+                                    更衣柜注册</a>
+                            </li>
+                          </ul>
+                    </div>
+              </li>
+
+              <li class="sidebar-list-item">
+                  <a href="{% url 'actionManage_traces' %}" class="sidebar-link text-muted
+                    {% block action_traces_active %}{% endblock %}">
+                      <i class="o-sales-up-1 mr-3 text-gray"></i>
+                      <span>追溯管理</span>
+                  </a>
+              </li>
+              <li class="sidebar-list-item">
+                  <a href="{% url 'actionManage_stock' %}" class="sidebar-link text-muted
+                    {% block action_stock_active %}{% endblock %}">
+                      <i class="o-table-content-1 mr-3 text-gray"></i>
+                      <span>库存管理</span>
+                  </a>
+              </li>
+              <li class="sidebar-list-item">
+                  <a href="{% url 'actionManage_system' %}" class="sidebar-link text-muted
+                    {% block action_system_active %}{% endblock %}">
+                      <i class="o-survey-1 mr-3 text-gray"></i>
+                      <span>系统管理</span>
+                  </a>
+              </li>
+            </ul>
+        </div>
+        <div class="page-holder w-100 d-flex flex-wrap">
+
+          {% block content %}{% endblock %}   {# 模板标签，其他网页继承主网页,在此block内填写相关网页内容 #}
+
+        </div>
+    </div>
+
+   {# 返回顶部 #}
+    <div id="goTopBtn">
+        <span class="glyphicon glyphicon-chevron-up">
+            Top
+        </span>
+    </div>
+
+    {# 返回顶部JavaScript #}
+{#    <script src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>#}
+    <script>
+        /*返回顶部*/
+        $(window).scroll(function(){
+           var sc=$(window).scrollTop();
+           var rwidth=$(window).width()
+           if(sc>0){
+            $("#goTopBtn").css("display","block");
+            $("#goTopBtn").css("left",(rwidth-60)+"px")
+           }else{
+           $("#goTopBtn").css("display","none");
+           }
+         })
+         $("#goTopBtn").click(function(){
+           var sc=$(window).scrollTop();
+           $('body,html').animate({scrollTop:0},500);
+         })
+    </script>
+
+    <div class="beian">
+        <p>耿雨飞 版权所有 | 基于 Django 构建   &nbsp;&nbsp;&copy 2019 | 托管于 阿里云主机 | 京ICP备19049667号</p>
+        <p>站长统计 | 今日IP[12] | 昨日IP[6] | 当前在线[3]</p>
+    </div>
+    <!-- JavaScript files-->
+    <script type="text/javascript" src="{% static 'actionManage/vendor/jquery/jquery.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'actionManage/vendor/popper.js/umd/popper.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'actionManage/vendor/bootstrap/js/bootstrap.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'actionManage/vendor/jquery.cookie/jquery.cookie.js' %}"></script>
+    <script type="text/javascript" src="{% static 'actionManage/vendor/chart.js/Chart.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'actionManage/js/js.cookie.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'actionManage/js/charts-home.js' %}"></script>
+    <script type="text/javascript" src="{% static 'actionManage/js/front.js' %}"></script>
+
+</body>

@@ -1,0 +1,104 @@
+
+<!--
+ actionHome.html  主界面：手术衣分配、违规记录
+ -->
+
+{# 继承actionBase.html #}
+{% extends 'actionBase.html' %}
+{# 下载静态文件路径 #}
+{% load staticfiles %}
+
+{#链接：CSS JS jQuery#}
+{% block header_extends %}
+
+{% endblock %}
+
+{#页面title#}
+{% block title %}
+    行为管理|主菜单
+{% endblock %}
+
+{# 左边菜单栏选中后，改成激活状态 #}
+{% block action_home_active %}
+    active
+{% endblock %}
+
+{# 主界面内容 #}
+{% block content %}
+    <div class="container-fluid px-xl-5">
+        <section class="py-5">
+            <div class="row">
+                <div class="col-lg-12 mb-4">
+                    <div class="card">
+                        <div class="card-header">
+                            <h6 class="text-uppercase mb-0">手术衣分配</h6>
+                        </div>
+                        <div class="card-body">
+                            <table class="table card-text">
+                                <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>姓名</th>
+                                        <th>科室</th>
+                                        <th>职能</th>
+                                        <th>工卡号</th>
+                                        <th>手术服ID</th>
+                                        <th>手术鞋ID</th>
+                                        <th>更衣柜号</th>
+                                        <th>申领日期</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <th scope="row">1</th>
+                                        <td>张三</td>
+                                        <td>神经外科</td>
+                                        <td>主任医师</td>
+                                        <td>2123</td>
+                                        <td>201905001</td>
+                                        <td>201903123</td>
+                                        <td>14</td>
+                                        <td>2019.09.20</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">1</th>
+                                        <td>李明</td>
+                                        <td>神经内科</td>
+                                        <td>主任医师</td>
+                                        <td>2113</td>
+                                        <td>201905001</td>
+                                        <td>201903123</td>
+                                        <td>11</td>
+                                        <td>2019.09.20</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">1</th>
+                                        <td>李明</td>
+                                        <td>神经内科</td>
+                                        <td>主任医师</td>
+                                        <td>2113</td>
+                                        <td>201905001</td>
+                                        <td>201903123</td>
+                                        <td>15</td>
+                                        <td>2019.09.20</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">1</th>
+                                        <td>李明</td>
+                                        <td>神经内科</td>
+                                        <td>主任医师</td>
+                                        <td>2113</td>
+                                        <td>201905001</td>
+                                        <td>201903123</td>
+                                        <td>13</td>
+                                        <td>2019.09.20</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+{% endblock %}

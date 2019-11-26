@@ -1,0 +1,61 @@
+
+{# actionBaseInfo_shoes.html 基本信息：手术鞋 #}
+
+{# 继承actionBase.html #}
+{% extends 'actionBase.html' %}
+{# 下载静态文件路径 #}
+{% load staticfiles %}
+
+{#链接：CSS JS jQuery#}
+{% block header_extends %}
+
+{% endblock %}
+
+{#页面title#}
+{% block title %}
+    行为管理|基本信息
+{% endblock %}
+
+{# 选中状态激活 #}
+{% block action_baseInfo_active %}
+    active
+{% endblock %}
+
+{# 主界面内容 #}
+{% block content %}
+    <div class="container-fluid px-xl-5">
+        <section class="py-5">
+            <div class="row">
+                <div class="col-lg-12 mb-4">
+                    <div class="card">
+                        <div class="card-header">
+                            <h6 class="text-uppercase mb-0">手术鞋</h6>
+                        </div>
+                        <div class="card-body">
+                            <table class="table card-text">
+                                <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>性别</th>
+                                        <th>大小</th>
+                                        <th>RFID</th>
+                                        <th>注册日期</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <th scope="row">1</th>
+                                        <td>男</td>
+                                        <td>中</td>
+                                        <td>201905001</td>
+                                        <td>20190612</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+{% endblock %}
