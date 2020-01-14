@@ -11,4 +11,5 @@ urlpatterns = [
     path('traces/', views.actionManage_traces, name='actionManage_traces'),
     path('stock/', views.actionManage_stock, name='actionManage_stock'),
     path('system/', views.actionManage_system, name='actionManage_system'),
+    path('system/addEmploy/', views.actionManage_system_addEmploy, name='actionManage_system_addEmploy'),
 ]

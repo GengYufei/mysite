@@ -45,3 +45,8 @@ def actionManage_stock(request):
 def actionManage_system(request):
     context = {}
     return render(request, 'actionManage/actionSystem.html', context)
+
+# 系统设置-人员添加
+def actionManage_system_addEmploy(request):
+    context = {}
+    return render(request, 'actionManage/actionSystem_addEmploy.html', context)

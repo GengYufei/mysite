@@ -1,4 +1,5 @@
-{% load staticfiles %}  {#Django框架，引入静态文件static的方法#}
+{#{% load staticfiles %}  {#Django框架，引入静态文件static的方法#}
+{% load static %}  {#Django框架，引入静态文件static的方法#}
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
@@ -98,7 +99,7 @@
 
     {# 备案信息 #}
     <div class="beian">
-        <p>耿雨飞 版权所有 | 基于 Django 构建   &nbsp;&nbsp;&copy 2019 | 托管于 阿里云主机 | 京ICP备19049667号</p>
+        <p>耿雨飞 版权所有 | 基于 Django 构建   &nbsp;&nbsp;&copy 2019 | 托管于 阿里云主机 | <a href="http://beian.miit.gov.cn">京ICP备19049667号</a></p>
         <p>站长统计 | 今日IP[12] | 昨日IP[6] | 当前在线[3]</p>
     </div>
 </body>
